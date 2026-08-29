@@ -27,6 +27,7 @@
 
 (keymap-set global-map "C-c a" my-leader-map)
 
+;;; Git workflow practice
 (provide 'my-keybindings)
 
 ;;; my-keybindings.el ends here
