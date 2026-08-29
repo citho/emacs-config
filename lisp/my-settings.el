@@ -40,6 +40,7 @@
 ;;; Themes
 (load-theme 'modus-operandi t)
 
+;;; Experiment
 (provide 'my-settings)
 
 ;;; my-settings.el ends here
