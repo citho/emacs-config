@@ -7,8 +7,7 @@
   :doc "Language commands."
   "r" #'eglot-rename
   "a" #'eglot-code-actions
-  "f" #'apheleia-format-buffer
-  "y" #'eglot-upgrade-eglot)
+  "f" #'apheleia-format-buffer)
 
 ;;; Search map
 (defvar-keymap my-search-map
@@ -28,7 +27,6 @@
 
 (keymap-set global-map "C-c a" my-leader-map)
 
-;;; Git workflow practice
 (provide 'my-keybindings)
 
 ;;; my-keybindings.el ends here
