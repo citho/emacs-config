@@ -1,0 +1,13 @@
+# Emacs temporary files
+*~
+\#*\#
+.#*
+
+# Emacs generated data
+backups/
+eln-cache/
+elpa/
+eshell/
+places
+transient/
+custom.el
