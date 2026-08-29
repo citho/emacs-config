@@ -1,7 +1,7 @@
 ;;; my-settings.el --- Personal configuration settings -*- lexical-binding: t -*-
 
 ;;; Startup
-(setq inhibit-startup-screen t)
+(setq inhibit-startup-screen 'maybe)
 
 ;;; UI
 (menu-bar-mode 0)
