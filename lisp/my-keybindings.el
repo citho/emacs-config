@@ -7,7 +7,8 @@
   :doc "Language commands."
   "r" #'eglot-rename
   "a" #'eglot-code-actions
-  "f" #'apheleia-format-buffer)
+  "f" #'apheleia-format-buffer
+  "y" #'eglot-upgrade-eglot)
 
 ;;; Search map
 (defvar-keymap my-search-map
