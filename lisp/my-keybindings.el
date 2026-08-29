@@ -30,4 +30,6 @@
 ;;; Git workflow practice
 (provide 'my-keybindings)
 
+;;; Revert practice
+
 ;;; my-keybindings.el ends here
