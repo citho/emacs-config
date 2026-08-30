@@ -1,8 +1,7 @@
 ;;; my-settings.el --- Personal configuration settings -*- lexical-binding: t -*-
 
 ;;; Startup
-(setq inhibit-startup-screen nil)
-
+(setq inhibit-startup-screen t)
 
 ;;; UI
 (menu-bar-mode 0)
@@ -41,7 +40,6 @@
 ;;; Themes
 (load-theme 'modus-operandi t)
 
-;;; Experiment
 (provide 'my-settings)
 
 ;;; my-settings.el ends here
