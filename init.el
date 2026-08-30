@@ -28,6 +28,7 @@
 (require 'my-programming)
 (require 'my-completion)
 (require 'my-git)
+(require 'my-dired)
 (require 'my-transient)
 (require 'my-keybindings)
 
