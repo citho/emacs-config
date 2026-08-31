@@ -12,14 +12,12 @@
 ;;; Search map
 (defvar-keymap my-search-map
   :doc "Search commands."
-  "l" #'consult-line
   "i" #'consult-imenu
   "r" #'consult-ripgrep)
 
 ;;; Leader map
 (defvar-keymap my-leader-map
   :doc "Personal leader keymap."
-  "b" #'consult-buffer
   "p" #'my-project-menu
   "e" #'my-emacs-menu
   "l" my-language-map

@@ -2,7 +2,8 @@
 
 ;;; Magit
 (use-package magit
-  :ensure t)
+  :ensure t
+  :commands magit-status)
 
 (provide 'my-git)
 

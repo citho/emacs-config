@@ -29,7 +29,10 @@
   (consult-buffer
    consult-line
    consult-imenu
-   consult-ripgrep))
+   consult-ripgrep)
+  :bind
+  (("C-x b" . consult-buffer)
+   ("C-s" . consult-line)))
 
 ;;; Corfu
 (use-package corfu
