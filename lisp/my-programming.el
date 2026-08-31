@@ -38,6 +38,11 @@
   :ensure nil
   :mode "\\.\\(?:cc\\|cpp\\|cxx\\)\\'")
 
+;;; Java
+(use-package java-ts-mode
+  :ensure nil
+  :mode "\\.java\\'")
+
 ;;; Eglot
 (use-package eglot
   :ensure nil
@@ -48,6 +53,7 @@
   (typescript-ts-mode . eglot-ensure)
   (c-ts-mode . eglot-ensure)
   (c++-ts-mode . eglot-ensure)
+  (java-ts-mode . eglot-ensure)
   :config
   (add-to-list 'eglot-server-programs
                '((python-ts-mode)
@@ -60,7 +66,10 @@
                  "typescript-language-server" "--stdio"))
   (add-to-list 'eglot-server-programs
                '((c-ts-mode c++-ts-mode)
-                 "clangd")))
+                 "clangd"))
+  (add-to-list 'eglot-server-programs
+               '((java-ts-mode)
+                 "jdtls")))
 
 ;;; Apheleia
 (use-package apheleia

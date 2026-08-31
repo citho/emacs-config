@@ -25,6 +25,7 @@
 
 ;;; Modules
 (require 'my-settings)
+(require 'my-project)
 (require 'my-programming)
 (require 'my-completion)
 (require 'my-git)

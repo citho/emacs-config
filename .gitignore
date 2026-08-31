@@ -11,3 +11,6 @@ eshell/
 places
 transient/
 custom.el
+
+# Emacs project database
+projects
