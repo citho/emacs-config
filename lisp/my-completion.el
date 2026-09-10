@@ -50,6 +50,15 @@
   :config
   (add-to-list 'completion-at-point-functions #'cape-dabbrev))
 
+;;; Vertico-Directoty
+(use-package vertico-directory
+  :after vertico
+  :ensure nil
+  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy)
+  :bind (:map vertico-map
+              ("DEL" . vertico-directory-delete-char)
+              ("M-DEL" . vertico-directory-delete-word)))
+
 (provide 'my-completion)
 
 ;;; my-completion.el ends here
