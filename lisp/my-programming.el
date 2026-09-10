@@ -105,16 +105,14 @@
   :config
   (setf (alist-get 'python-ts-mode apheleia-mode-alist)
         'ruff)
-  (setf (alist-get 'java-ts-mode apheleia-mode-alist)
-        'google-java-format)
-  (setf (alist-get 'html-ts-mode apheleia-mode-alist)
-        'prettier)
-  (setf (alist-get 'css-ts-mode apheleia-mode-alist)
-        'prettier)
   (setf (alist-get 'php-ts-mode apheleia-mode-alist)
         'php-cs-fixer)
   (setf (alist-get 'php-cs-fixer apheleia-formatters)
-        '("php-cs-fixer-apheleia" filepath)))
+        '("php-cs-fixer"
+          "fix"
+          "--using-cache=no"
+          "--quiet"
+          filepath)))
 
 (provide 'my-programming)
 
