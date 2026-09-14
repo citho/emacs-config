@@ -37,5 +37,6 @@
 (require 'my-dired)
 (require 'my-transient)
 (require 'my-keybindings)
+(require 'my-org)
 
 ;;; init.el ends here

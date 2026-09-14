@@ -6,6 +6,15 @@
   :init
   (vertico-mode 1))
 
+;;; Vertico-Directoty
+(use-package vertico-directory
+  :after vertico
+  :ensure nil
+  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy)
+  :bind (:map vertico-map
+              ("DEL" . vertico-directory-delete-char)
+              ("M-DEL" . vertico-directory-delete-word)))
+
 ;;; Orderless
 (use-package orderless
   :ensure t
@@ -26,13 +35,24 @@
 (use-package consult
   :ensure t
   :commands
-  (consult-buffer
-   consult-line
-   consult-imenu
-   consult-ripgrep)
+  (consult-imenu
+   consult-ripgrep
+   consult-yank-pop
+   consult-flymake
+   consult-git-grep)
   :bind
   (("C-x b" . consult-buffer)
-   ("C-s" . consult-line)))
+   ("C-x 4 b" . consult-buffer-other-window)
+   ("C-x p b" . consult-project-buffer)
+   ("C-s" . consult-line)
+   ("M-y" . consult-yank-pop)
+   ("M-g f" . consult-flymake)
+   ("M-g g" . consult-goto-line)
+   ("M-g i" . consult-imenu)
+   ("M-g o" . consult-outline)
+   ("M-s d" . consult-find)
+   ("M-s G" . consult-git-grep)
+   ("M-s r" . consult-ripgrep)))
 
 ;;; Corfu
 (use-package corfu
@@ -48,16 +68,20 @@
 (use-package cape
   :ensure t
   :config
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev))
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-elisp-block)
+  (add-to-list 'completion-at-point-functions #'cape-keyword))
 
-;;; Vertico-Directoty
-(use-package vertico-directory
-  :after vertico
-  :ensure nil
-  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy)
-  :bind (:map vertico-map
-              ("DEL" . vertico-directory-delete-char)
-              ("M-DEL" . vertico-directory-delete-word)))
+;;; Embark
+(use-package embark
+  :ensure t
+  :bind
+  (("C-." . embark-act)
+   ("C-;" . embark-dwim)
+   ("C-h B" . embark-bindings))
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command))
 
 (provide 'my-completion)
 

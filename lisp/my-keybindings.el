@@ -23,7 +23,7 @@
   "l" my-language-map
   "s" my-search-map)
 
-(keymap-set global-map "C-c a" my-leader-map)
+(keymap-set global-map "C-c b" my-leader-map)
 
 (provide 'my-keybindings)
 
