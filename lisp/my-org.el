@@ -1,4 +1,4 @@
-;;; my-org.el --- Personal configuration org -*- lexical-binding: t -*-
+;;; my-org.el --- Org configuration -*- lexical-binding: t -*-
 
 (use-package org
   :ensure nil
@@ -11,7 +11,15 @@
   (setq org-capture-templates
         '(("t" "Task" entry
            (file+headline "~/org/tasks.org" "Tasks")
-           "* TODO %?\n  %U\n")))
+           "* TODO %?\n  %U\n")
+
+          ("n" "Note" entry
+           (file+headline "~/org/tasks.org" "Notes")
+           "* %?\n  %U\n")
+
+          ("m" "Meeting" entry
+           (file+headline "~/org/tasks.org" "Meetings")
+           "* %? :meeting:\n  %U\n")))
   
   (setq org-refile-targets
         '((nil :maxlevel . 3)))
@@ -21,8 +29,10 @@
 
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((python . t))))
+   '((emacs-lisp . t)
+     (python . t)
+     (shell . t))))
 
 (provide 'my-org)
 
-;;; my-settings.el ends here
+;;; my-org.el ends here

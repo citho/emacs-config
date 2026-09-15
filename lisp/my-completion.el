@@ -83,6 +83,10 @@
   :init
   (setq prefix-help-command #'embark-prefix-help-command))
 
+(use-package embark-consult
+  :ensure t
+  :after (embark consult))
+
 (provide 'my-completion)
 
 ;;; my-completion.el ends here
