@@ -33,6 +33,7 @@
 (require 'my-project)
 (require 'my-programming)
 (require 'my-completion)
+(require 'my-ui)
 (require 'my-git)
 (require 'my-dired)
 (require 'my-transient)

@@ -12,6 +12,7 @@ places
 transient/
 custom.el
 bookmarks
+multisession/
 
 # Emacs project database
 projects

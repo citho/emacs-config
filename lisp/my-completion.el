@@ -87,6 +87,19 @@
   :ensure t
   :after (embark consult))
 
+(use-package ace-window
+  :ensure t
+  :bind
+  ("M-o" . ace-window)
+  ("M-O" . ace-delete-window)
+  :config
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+
+(use-package expreg
+  :bind
+  (("C-=" . expreg-expand)
+   ("C--" . expreg-contract)))
+
 (provide 'my-completion)
 
 ;;; my-completion.el ends here
