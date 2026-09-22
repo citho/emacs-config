@@ -13,6 +13,8 @@ transient/
 custom.el
 bookmarks
 multisession/
+.mc-lists.el
+ielm-history.eld
 
 # Emacs project database
 projects

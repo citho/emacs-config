@@ -1,6 +1,6 @@
 ;;; my-keybindings.el --- Personal keybindings -*- lexical-binding: t -*-
 
-(require 'my-transient)
+(require 'do-transient)
 
 ;;; Language map
 (defvar-keymap my-language-map
@@ -25,6 +25,6 @@
 
 (keymap-set global-map "C-c b" my-leader-map)
 
-(provide 'my-keybindings)
+(provide 'do-keybindings)
 
 ;;; my-keybindings.el ends here

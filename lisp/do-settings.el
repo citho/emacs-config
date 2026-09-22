@@ -12,7 +12,6 @@
 (save-place-mode 1)
 (show-paren-mode 1)
 
-(setq-default cursor-type 'bar)
 (blink-cursor-mode 1)
 
 ;;; Editing
@@ -38,8 +37,12 @@
     "C-c a s" "search"))
 
 ;;; Themes
+
+(setq modus-operandi-palette-overrides
+      '((bg-mode-line-active bg-blue-intense)))
+
 (load-theme 'modus-operandi t)
 
-(provide 'my-settings)
+(provide 'do-settings)
 
 ;;; my-settings.el ends here

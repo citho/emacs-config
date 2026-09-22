@@ -29,15 +29,15 @@
 (setq use-package-always-ensure t)
 
 ;;; Modules
-(require 'my-settings)
-(require 'my-project)
-(require 'my-programming)
-(require 'my-completion)
-(require 'my-ui)
-(require 'my-git)
-(require 'my-dired)
-(require 'my-transient)
-(require 'my-keybindings)
-(require 'my-org)
+(require 'do-settings)
+(require 'do-project)
+(require 'do-programming)
+(require 'do-completion)
+(require 'do-ui)
+(require 'do-git)
+(require 'do-dired)
+(require 'do-transient)
+(require 'do-keybindings)
+(require 'do-org)
 
 ;;; init.el ends here

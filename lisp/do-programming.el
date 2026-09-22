@@ -114,6 +114,6 @@
           "--quiet"
           filepath)))
 
-(provide 'my-programming)
+(provide 'do-programming)
 
 ;;; my-programming.el ends here

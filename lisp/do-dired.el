@@ -8,6 +8,6 @@
   (setq dired-listing-switches "-alh"
         dired-kill-when-opening-new-dired-buffer t))
 
-(provide 'my-dired)
+(provide 'do-dired)
 
 ;;; my-dired.el ends here

@@ -5,6 +5,6 @@
   :ensure t
   :commands magit-status)
 
-(provide 'my-git)
+(provide 'do-git)
 
 ;;; my-git.el ends here

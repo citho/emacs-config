@@ -1,6 +1,6 @@
 ;;; my-transient.el --- Personal transient menus -*- lexical-binding: t -*-
 
-(require 'my-utils)
+(require 'do-utils)
 (require 'transient)
 
 ;;; Project
@@ -31,6 +31,6 @@
     ("r" "Reload init" my-reload-init)
     ("d" "Emacs directory" my-open-emacs-directory)]])
 
-(provide 'my-transient)
+(provide 'do-transient)
 
 ;;; my-transient.el ends here

@@ -100,6 +100,19 @@
   (("C-=" . expreg-expand)
    ("C--" . expreg-contract)))
 
-(provide 'my-completion)
+(use-package wgrep
+  :ensure t
+  :config
+  (setq wgrep-change-readonly-file t)
+  (setq wgrep-auto-save-buffer t))
+
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+         ("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)))
+
+(provide 'do-completion)
 
 ;;; my-completion.el ends here

@@ -5,6 +5,6 @@
 ;;; Maven
 (add-to-list 'project-vc-extra-root-markers "pom.xml")
 
-(provide 'my-project)
+(provide 'do-project)
 
 ;;; my-project.el ends here

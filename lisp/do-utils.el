@@ -16,6 +16,6 @@
   (interactive)
   (dired user-emacs-directory))
 
-(provide 'my-utils)
+(provide 'do-utils)
 
 ;;; my-utils.el ends here

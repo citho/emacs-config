@@ -33,6 +33,6 @@
      (python . t)
      (shell . t))))
 
-(provide 'my-org)
+(provide 'do-org)
 
 ;;; my-org.el ends here
