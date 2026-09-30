@@ -1,10 +1,10 @@
-;;; my-git.el --- Git configuration -*- lexical-binding: t -*-
+;;; do-git.el --- Git configuration -*- lexical-binding: t -*-
 
-;;; Magit
 (use-package magit
   :ensure t
-  :commands magit-status)
+  :bind (("C-x g" . magit-status)
+         ("C-x M-g" . magit-dispatch)))
 
 (provide 'do-git)
 
-;;; my-git.el ends here
+;;; do-git.el ends here

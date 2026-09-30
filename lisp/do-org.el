@@ -1,4 +1,4 @@
-;;; my-org.el --- Org configuration -*- lexical-binding: t -*-
+;;; do-org.el --- Org configuration -*- lexical-binding: t -*-
 
 (use-package org
   :ensure nil
@@ -35,4 +35,4 @@
 
 (provide 'do-org)
 
-;;; my-org.el ends here
+;;; do-org.el ends here

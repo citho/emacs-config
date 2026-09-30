@@ -1,12 +1,8 @@
-;;; my-settings.el --- Personal configuration settings -*- lexical-binding: t -*-
+;;; do-settings.el --- Personal configuration settings -*- lexical-binding: t -*-
 
-;;; Startup
-(setq inhibit-startup-screen t)
-
-;;; UI
-(menu-bar-mode 0)
-(tool-bar-mode 0)
-(scroll-bar-mode 0)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
 (global-hl-line-mode 1)
 (column-number-mode 1)
 (save-place-mode 1)
@@ -14,19 +10,23 @@
 
 (blink-cursor-mode 1)
 
-;;; Editing
 (delete-selection-mode 1)
 (electric-pair-mode 1)
 
 (setq-default indent-tabs-mode nil)
 
-;;; Files
 (setq make-backup-files t)
 
 (setq backup-directory-alist
       `(("." . ,(expand-file-name "backups/" user-emacs-directory))))
 
-;;; Which-Key
+(use-package autorevert
+  :ensure nil
+  :custom
+  (auto-revert-use-notify nil)
+  :config
+  (global-auto-revert-mode t))
+
 (use-package which-key
   :ensure t
   :config
@@ -36,13 +36,12 @@
     "C-c a l" "language"
     "C-c a s" "search"))
 
-;;; Themes
-
 (setq modus-operandi-palette-overrides
-      '((bg-mode-line-active bg-blue-intense)))
+      '((bg-mode-line-active bg-blue-intense)
+        (fg-mode-line-active fg-main)))
 
 (load-theme 'modus-operandi t)
 
 (provide 'do-settings)
 
-;;; my-settings.el ends here
+;;; do-settings.el ends here

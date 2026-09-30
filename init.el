@@ -1,17 +1,14 @@
 ;;; init.el --- My Emacs configuration -*- lexical-binding: t -*-
 
-;;; Custom file
 (setq custom-file
       (expand-file-name "custom.el"
                         user-emacs-directory))
 
 (load custom-file 'noerror)
 
-;;; Load path
 (add-to-list 'load-path
              (expand-file-name "lisp/" user-emacs-directory))
 
-;;; Package management
 (require 'package)
 
 (setq package-archives
@@ -28,12 +25,12 @@
 
 (setq use-package-always-ensure t)
 
-;;; Modules
 (require 'do-settings)
 (require 'do-project)
 (require 'do-programming)
 (require 'do-completion)
 (require 'do-ui)
+(require 'do-editor)
 (require 'do-git)
 (require 'do-dired)
 (require 'do-transient)

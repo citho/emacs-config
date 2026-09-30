@@ -1,65 +1,52 @@
-;;; my-programming.el --- Programming configuration -*- lexical-binding: t -*-
+;;; do-programming.el --- Programming configuration -*- lexical-binding: t -*-
 
-;;; Programming mode setup
 (defun my-programming-mode-setup ()
   "Personal settings for programming buffers."
-  (display-line-numbers-mode 1)
-  (apheleia-mode 1))
+  (display-line-numbers-mode 1))
 
 (add-hook 'prog-mode-hook #'my-programming-mode-setup)
 (add-hook 'html-mode-hook #'my-programming-mode-setup)
 
-;;; Python
 (use-package python
   :ensure nil
   :mode ("\\.py\\'" . python-ts-mode))
 
-;;; Rust
 (use-package rust-ts-mode
   :ensure nil
   :mode "\\.rs\\'")
 
-;;; Javascript
 (use-package js
   :ensure nil
   :mode ("\\.js\\'" . js-ts-mode))
 
-;;; Typescript
 (use-package typescript-ts-mode
   :ensure nil
   :mode ("\\.tsx?\\'" . typescript-ts-mode))
 
-;;; C
 (use-package c-ts-mode
   :ensure nil
   :mode "\\.c\\'")
 
-;;; C++
 (use-package c++-ts-mode
   :ensure nil
   :mode "\\.\\(?:cc\\|cpp\\|cxx\\)\\'")
 
-;;; Java
 (use-package java-ts-mode
   :ensure nil
   :mode "\\.java\\'")
 
-;;; PHP
 (use-package php-ts-mode
   :ensure nil
   :mode "\\.php\\'")
 
-;;; HTML
 (use-package html-ts-mode
   :ensure nil
   :mode "\\.html?\\'")
 
-;;; CSS
 (use-package css-ts-mode
   :ensure nil
   :mode "\\.css\\'")
 
-;;; Eglot
 (use-package eglot
   :ensure nil
   :hook
@@ -99,9 +86,10 @@
                '((css-ts-mode)
                  "vscode-css-language-server" "--stdio")))
 
-;;; Apheleia
 (use-package apheleia
   :ensure t
+  :init
+  (apheleia-global-mode +1)
   :config
   (setf (alist-get 'python-ts-mode apheleia-mode-alist)
         'ruff)
@@ -116,4 +104,4 @@
 
 (provide 'do-programming)
 
-;;; my-programming.el ends here
+;;; do-programming.el ends here

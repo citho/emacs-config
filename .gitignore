@@ -15,6 +15,9 @@ bookmarks
 multisession/
 .mc-lists.el
 ielm-history.eld
+games/
+persist
+
 
 # Emacs project database
 projects

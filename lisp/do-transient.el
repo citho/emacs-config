@@ -1,9 +1,8 @@
-;;; my-transient.el --- Personal transient menus -*- lexical-binding: t -*-
+;;; do-transient.el --- Personal transient menus -*- lexical-binding: t -*-
 
 (require 'do-utils)
 (require 'transient)
 
-;;; Project
 (transient-define-prefix my-project-menu ()
   "Project commands."
   [["Project"
@@ -19,7 +18,6 @@
     ("p" "Switch project" project-switch-project)
     ("k" "Kill buffers" project-kill-buffers)]])
 
-;;; Emacs
 (transient-define-prefix my-emacs-menu ()
   "Emacs commands."
   [["Buffer"
@@ -33,4 +31,4 @@
 
 (provide 'do-transient)
 
-;;; my-transient.el ends here
+;;; do-transient.el ends here

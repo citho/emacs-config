@@ -1,6 +1,5 @@
-;;; my-utils.el --- Personal utility functions -*- lexical-binding: t -*-
+;;; do-utils.el --- Personal utility functions -*- lexical-binding: t -*-
 
-;;; Utilities
 (defun my-edit-init-file ()
   "Open the user's init file."
   (interactive)
@@ -18,4 +17,4 @@
 
 (provide 'do-utils)
 
-;;; my-utils.el ends here
+;;; do-utils.el ends here

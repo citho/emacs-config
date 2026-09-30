@@ -1,13 +1,12 @@
-;;; my-dired.el --- Dired configuration -*- lexical-binding: t -*-
+;;; do-dired.el --- Dired configuration -*- lexical-binding: t -*-
 
-;;; Dired
 (use-package dired
   :ensure nil
-  :commands dired
+  :bind (("C-x C-j" . dired-jump))
   :config
   (setq dired-listing-switches "-alh"
         dired-kill-when-opening-new-dired-buffer t))
 
 (provide 'do-dired)
 
-;;; my-dired.el ends here
+;;; do-dired.el ends here

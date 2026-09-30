@@ -1,21 +1,18 @@
-;;; my-keybindings.el --- Personal keybindings -*- lexical-binding: t -*-
+;;; do-keybindings.el --- Personal keybindings -*- lexical-binding: t -*-
 
 (require 'do-transient)
 
-;;; Language map
 (defvar-keymap my-language-map
   :doc "Language commands."
   "r" #'eglot-rename
   "a" #'eglot-code-actions
   "f" #'apheleia-format-buffer)
 
-;;; Search map
 (defvar-keymap my-search-map
   :doc "Search commands."
   "i" #'consult-imenu
   "r" #'consult-ripgrep)
 
-;;; Leader map
 (defvar-keymap my-leader-map
   :doc "Personal leader keymap."
   "p" #'my-project-menu
@@ -27,4 +24,4 @@
 
 (provide 'do-keybindings)
 
-;;; my-keybindings.el ends here
+;;; do-keybindings.el ends here
