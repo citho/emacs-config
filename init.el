@@ -31,7 +31,7 @@
 (require 'do-completion)
 (require 'do-ui)
 (require 'do-editor)
-(require 'do-git)
+(require 'do-version-control)
 (require 'do-dired)
 (require 'do-transient)
 (require 'do-keybindings)

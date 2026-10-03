@@ -29,8 +29,9 @@
 
 (use-package vundo
   :ensure t
-  :bind
-  (("C-c u" . vundo)))
+  :bind (("C-c u" . vundo))
+  :config
+  (setq vundo-glyph-alist vundo-unicode-symbols))
 
 (use-package winner
   :ensure nil

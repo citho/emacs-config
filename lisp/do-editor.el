@@ -6,18 +6,24 @@
   (activities-mode)
   :custom
   (activities-bookmark-store t)
-  :bind
-  (("C-x C-a d" . activities-define)
-   ("C-x C-a a" . activities-resume)
-   ("C-x C-a s" . activities-suspend)
-   ("C-x C-a k" . activities-kill)
-   ("C-x C-a g" . activities-revert)
-   ("C-x C-a l" . activities-list)))
+  :bind (("C-x C-a C-n" . activities-new)
+         ("C-x C-a C-d" . activities-define)
+         ("C-x C-a C-a" . activities-resume)
+         ("C-x C-a C-s" . activities-suspend)
+         ("C-x C-a C-k" . activities-kill)
+         ("C-x C-a RET" . activities-switch)
+         ("C-x C-a b" . activities-switch-buffer)
+         ("C-x C-a g" . activities-revert)
+         ("C-x C-a l" . activities-list)))
 
 (use-package expreg
-  :bind
-  (("C-=" . expreg-expand)
-   ("C--" . expreg-contract)))
+  :bind (("C-=" . expreg-expand)
+         ("C--" . expreg-contract))
+  :config
+  (add-hook 'text-mode-hook
+            (lambda ()
+              (add-to-list 'expreg-functions #'expreg--sentence))))
+
 
 (use-package multiple-cursors
   :ensure t
@@ -28,7 +34,8 @@
 
 (use-package wgrep
   :ensure t
-  :commands wgrep-change-to-wgrep-mode
+  :bind (:map grep-mode-map
+              ("e" . wgrep-change-to-wgrep-mode))
   :config
   (setq wgrep-change-readonly-file t)
   (setq wgrep-auto-save-buffer t))

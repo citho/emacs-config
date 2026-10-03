@@ -6,8 +6,7 @@
   :init
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-keyword)
-  (add-to-list 'completion-at-point-functions #'cape-elisp-block))
+  (add-to-list 'completion-at-point-functions #'cape-keyword))
 
 (use-package consult
   :ensure t
@@ -70,7 +69,9 @@
               ("C-p" . corfu-previous)
               ("C-g" . corfu-quit)
               ("M-d" . corfu-popupinfo-toggle)
-              ("M-q" . corfu-quick-insert)))
+              ("M-q" . corfu-quick-insert)
+              ("M-n" . corfu-popupinfo-scroll-up)
+              ("M-p" . corfu-popupinfo-scroll-down)))
 
 (use-package embark
   :ensure t
@@ -81,10 +82,10 @@
   :init
   (setq prefix-help-command #'embark-prefix-help-command)
   :config
-  (add-to-list 'display-buffer-alist
-               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-                 nil
-                 (window-parameters (mode-line-format . none)))))
+  (setq embark-indicators
+        '(embark-minimal-indicator
+          embark-highlight-indicator
+          embark-isearch-highlight-indicator)))
 
 (use-package embark-consult
   :ensure t
@@ -108,6 +109,9 @@
 
 (use-package vertico
   :ensure t
+  :custom
+  (vertico-count 10)
+  (vertico-cycle t)
   :init
   (vertico-mode 1))
 
