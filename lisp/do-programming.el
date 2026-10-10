@@ -50,6 +50,11 @@
 (use-package eglot
   :ensure nil
   :hook
+  (eglot-managed-mode . (lambda ()
+                          (setq-local completion-at-point-functions
+                                      (list (cape-capf-super
+                                             #'eglot-completion-at-point
+                                             #'cape-dabbrev)))))
   (python-ts-mode . eglot-ensure)
   (rust-ts-mode . eglot-ensure)
   (js-ts-mode . eglot-ensure)

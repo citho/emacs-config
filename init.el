@@ -1,11 +1,5 @@
 ;;; init.el --- My Emacs configuration -*- lexical-binding: t -*-
 
-(setq custom-file
-      (expand-file-name "custom.el"
-                        user-emacs-directory))
-
-(load custom-file 'noerror)
-
 (add-to-list 'load-path
              (expand-file-name "lisp/" user-emacs-directory))
 
@@ -25,13 +19,24 @@
 
 (setq use-package-always-ensure t)
 
+(use-package no-littering
+  :ensure t
+  :config
+  (setq custom-file
+        (no-littering-expand-etc-file-name "custom.el"))
+  (load custom-file 'noerror)
+  (setq backup-directory-alist
+        `(("." . ,(no-littering-expand-var-file-name "backups/"))))
+  (setq auto-save-file-name-transforms
+        `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
+
 (require 'do-settings)
 (require 'do-project)
 (require 'do-programming)
 (require 'do-completion)
 (require 'do-ui)
 (require 'do-editor)
-(require 'do-version-control)
+(require 'do-vc)
 (require 'do-dired)
 (require 'do-transient)
 (require 'do-keybindings)

@@ -2,10 +2,6 @@
 
 (use-package activities
   :ensure t
-  :init
-  (activities-mode)
-  :custom
-  (activities-bookmark-store t)
   :bind (("C-x C-a C-n" . activities-new)
          ("C-x C-a C-d" . activities-define)
          ("C-x C-a C-a" . activities-resume)
@@ -14,7 +10,11 @@
          ("C-x C-a RET" . activities-switch)
          ("C-x C-a b" . activities-switch-buffer)
          ("C-x C-a g" . activities-revert)
-         ("C-x C-a l" . activities-list)))
+         ("C-x C-a l" . activities-list))
+  :init
+  (activities-mode 1)
+  :custom
+  (activities-bookmark-store t))
 
 (use-package expreg
   :bind (("C-=" . expreg-expand)
@@ -35,7 +35,7 @@
 (use-package wgrep
   :ensure t
   :bind (:map grep-mode-map
-              ("e" . wgrep-change-to-wgrep-mode))
+              ("C-c C-p" . wgrep-change-to-wgrep-mode))
   :config
   (setq wgrep-change-readonly-file t)
   (setq wgrep-auto-save-buffer t))

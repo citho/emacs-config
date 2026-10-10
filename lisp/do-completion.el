@@ -1,4 +1,4 @@
-;;; do-completion.el --- Completion configuration -*- lexical-binding: t -*-
+;;; do-completion.el --- Minibuffer and in-buffer completion configuration -*- lexical-binding: t -*-
 
 (use-package cape
   :ensure t
@@ -32,7 +32,6 @@
   :init
   (advice-add #'register-preview :override #'consult-register-window)
   (setq register-preview-delay 0.5)
-
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
   :config
@@ -43,13 +42,24 @@
    consult-source-bookmark consult-source-file-register
    consult-source-recent-file consult-source-project-recent-file
    :preview-key '(:debounce 0.4 any))
-
-  (setq consult-narrow-key "<"))
+  (setq consult-narrow-key "<")
+  (keymap-set consult-narrow-map
+              (concat consult-narrow-key " ?") #'consult-narrow-help))
 
 (use-package corfu
   :ensure t
+  :bind (:map corfu-map
+              ("s-SPC" . corfu-insert-separator)
+              ("C-n" . corfu-next)
+              ("C-p" . corfu-previous)
+              ("C-g" . corfu-quit)
+              ("M-d" . corfu-popupinfo-toggle)
+              ("M-q" . corfu-quick-insert)
+              ("M-n" . corfu-popupinfo-scroll-up)
+              ("M-p" . corfu-popupinfo-scroll-down))
   :init
-  (global-corfu-mode)
+  (global-corfu-mode 1)
+  :config
   (corfu-history-mode 1)
   (corfu-popupinfo-mode 1)
   :custom
@@ -62,23 +72,13 @@
   (corfu-popupinfo-max-height 15)
   (corfu-popupinfo-max-width 60)
   (corfu-count 10)
-  (corfu-scroll-margin 2)
-  :bind (:map corfu-map
-              ("s-SPC" . corfu-insert-separator)
-              ("C-n" . corfu-next)
-              ("C-p" . corfu-previous)
-              ("C-g" . corfu-quit)
-              ("M-d" . corfu-popupinfo-toggle)
-              ("M-q" . corfu-quick-insert)
-              ("M-n" . corfu-popupinfo-scroll-up)
-              ("M-p" . corfu-popupinfo-scroll-down)))
+  (corfu-scroll-margin 2))
 
 (use-package embark
   :ensure t
-  :bind
-  (("C-." . embark-act)
-   ("C-;" . embark-dwim)
-   ("C-h B" . embark-bindings))
+  :bind (("C-." . embark-act)
+         ("C-;" . embark-dwim)
+         ("C-h B" . embark-bindings))
   :init
   (setq prefix-help-command #'embark-prefix-help-command)
   :config
@@ -109,15 +109,15 @@
 
 (use-package vertico
   :ensure t
+  :init
+  (vertico-mode 1)
   :custom
   (vertico-count 10)
-  (vertico-cycle t)
-  :init
-  (vertico-mode 1))
+  (vertico-cycle t))
 
 (use-package vertico-directory
-  :after vertico
   :ensure nil
+  :after vertico
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy)
   :bind (:map vertico-map
               ("DEL" . vertico-directory-delete-char)

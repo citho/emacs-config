@@ -4,19 +4,11 @@
 .#*
 
 # Emacs generated data
-backups/
 eln-cache/
 elpa/
-eshell/
-places
-transient/
-custom.el
-bookmarks
-multisession/
 .mc-lists.el
-ielm-history.eld
-games/
-persist
+var/
+etc/
 
 
 # Emacs project database
