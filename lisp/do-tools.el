@@ -1,4 +1,27 @@
-;;; do-vc.el --- Guarding Version Control systems configuration -*- lexical-binding: t -*-
+;;; do-tools.el --- Tools and navigation -*- lexical-binding: t -*-
+
+(use-package activities
+  :ensure t
+  :bind (("C-x C-a C-n" . activities-new)
+         ("C-x C-a C-d" . activities-define)
+         ("C-x C-a C-a" . activities-resume)
+         ("C-x C-a C-s" . activities-suspend)
+         ("C-x C-a C-k" . activities-kill)
+         ("C-x C-a RET" . activities-switch)
+         ("C-x C-a b" . activities-switch-buffer)
+         ("C-x C-a g" . activities-revert)
+         ("C-x C-a l" . activities-list))
+  :init
+  (activities-mode 1)
+  :custom
+  (activities-bookmark-store t))
+
+(use-package dired
+  :ensure nil
+  :bind (("C-x C-j" . dired-jump))
+  :config
+  (setq dired-listing-switches "-alh"
+        dired-kill-when-opening-new-dired-buffer t))
 
 (use-package magit
   :ensure t
@@ -28,6 +51,6 @@
   (unless (display-graphic-p)
     (diff-hl-margin-mode 1)))
 
-(provide 'do-vc)
+(provide 'do-tools)
 
-;;; do-vc.el ends here
+;;; do-tools.el ends here

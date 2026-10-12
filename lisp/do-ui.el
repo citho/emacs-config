@@ -1,4 +1,18 @@
-;;; do-ui.el --- UI configuration -*- lexical-binding: t -*-
+;;; do-ui.el --- User interface -*- lexical-binding: t -*-
+
+(setq display-line-numbers-type 'relative)
+
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+(add-hook 'text-mode-hook #'display-line-numbers-mode)
+
+(dolist (hook '(term-mode-hook
+                eshell-mode-hook
+                shell-mode-hook
+                help-mode-hook
+                org-mode-hook))
+  (add-hook hook
+            (lambda ()
+              (display-line-numbers-mode -1))))
 
 (use-package ace-window
   :ensure t
@@ -10,6 +24,7 @@
 
 (use-package command-log-mode
   :ensure t
+  :defer t
   :bind (("C-c o" . command-log-mode))
   :config
   (add-hook 'command-log-mode-hook

@@ -1,60 +1,14 @@
-;;; do-programming.el --- Programming configuration -*- lexical-binding: t -*-
+;;; do-development.el --- Programming tools -*- lexical-binding: t -*-
 
-(defun my-programming-mode-setup ()
-  "Personal settings for programming buffers."
-  (display-line-numbers-mode 1))
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (setq-local show-trailing-whitespace t)))
 
-(add-hook 'prog-mode-hook #'my-programming-mode-setup)
-(add-hook 'html-mode-hook #'my-programming-mode-setup)
-
-(use-package python
-  :ensure nil
-  :mode ("\\.py\\'" . python-ts-mode))
-
-(use-package rust-ts-mode
-  :ensure nil
-  :mode "\\.rs\\'")
-
-(use-package js
-  :ensure nil
-  :mode ("\\.js\\'" . js-ts-mode))
-
-(use-package typescript-ts-mode
-  :ensure nil
-  :mode ("\\.tsx?\\'" . typescript-ts-mode))
-
-(use-package c-ts-mode
-  :ensure nil
-  :mode "\\.c\\'")
-
-(use-package c++-ts-mode
-  :ensure nil
-  :mode "\\.\\(?:cc\\|cpp\\|cxx\\)\\'")
-
-(use-package java-ts-mode
-  :ensure nil
-  :mode "\\.java\\'")
-
-(use-package php-ts-mode
-  :ensure nil
-  :mode "\\.php\\'")
-
-(use-package html-ts-mode
-  :ensure nil
-  :mode "\\.html?\\'")
-
-(use-package css-ts-mode
-  :ensure nil
-  :mode "\\.css\\'")
+(add-hook 'before-save-hook #'delete-trailing-whitespace)
 
 (use-package eglot
   :ensure nil
   :hook
-  (eglot-managed-mode . (lambda ()
-                          (setq-local completion-at-point-functions
-                                      (list (cape-capf-super
-                                             #'eglot-completion-at-point
-                                             #'cape-dabbrev)))))
   (python-ts-mode . eglot-ensure)
   (rust-ts-mode . eglot-ensure)
   (js-ts-mode . eglot-ensure)
@@ -65,6 +19,12 @@
   (php-ts-mode . eglot-ensure)
   (html-ts-mode . eglot-ensure)
   (css-ts-mode . eglot-ensure)
+  (json-ts-mode . eglot-ensure)
+  (eglot-managed-mode . (lambda ()
+                          (setq-local completion-at-point-functions
+                                      (list (cape-capf-super
+                                             #'eglot-completion-at-point
+                                             #'cape-dabbrev)))))
   :config
   (add-to-list 'eglot-server-programs
                '((python-ts-mode)
@@ -89,7 +49,10 @@
                  "vscode-html-language-server" "--stdio"))
   (add-to-list 'eglot-server-programs
                '((css-ts-mode)
-                 "vscode-css-language-server" "--stdio")))
+                 "vscode-css-language-server" "--stdio"))
+  (add-to-list 'eglot-server-programs
+               '((json-ts-mode)
+                 "vscode-json-language-server" "--stdio")))
 
 (use-package apheleia
   :ensure t
@@ -107,6 +70,6 @@
           "--quiet"
           filepath)))
 
-(provide 'do-programming)
+(provide 'do-development)
 
-;;; do-programming.el ends here
+;;; do-development.el ends here

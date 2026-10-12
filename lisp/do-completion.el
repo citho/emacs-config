@@ -1,8 +1,9 @@
-;;; do-completion.el --- Minibuffer and in-buffer completion configuration -*- lexical-binding: t -*-
+;;; do-completion.el --- Completion stack -*- lexical-binding: t -*-
 
 (use-package cape
   :ensure t
   :bind ("C-c p" . cape-prefix-map)
+  :hook (embark-collect-mode . consult-preview-at-point-mode)
   :init
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file)
