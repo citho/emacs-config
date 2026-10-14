@@ -12,16 +12,18 @@
          ("C-x C-a g" . activities-revert)
          ("C-x C-a l" . activities-list))
   :init
-  (activities-mode 1)
-  :custom
-  (activities-bookmark-store t))
+  (setq activities-bookmark-store t)
+  (add-hook 'after-init-hook
+            (lambda ()
+              (require 'activities)
+              (activities-mode 1))))
 
 (use-package dired
   :ensure nil
   :bind (("C-x C-j" . dired-jump))
-  :config
-  (setq dired-listing-switches "-alh"
-        dired-kill-when-opening-new-dired-buffer t))
+  :custom
+  (dired-listing-switches "-alh")
+  (dired-kill-when-opening-new-dired-buffer t))
 
 (use-package magit
   :ensure t
@@ -37,19 +39,32 @@
               ("C-c g r" . diff-hl-revert-hunk)
               ("C-c g s" . diff-hl-stage-current-hunk))
   :init
-  (global-diff-hl-mode 1)
-  :config
-  (diff-hl-flydiff-mode 1)
-  (add-hook 'diff-hl-flydiff-mode-hook
+  (defun my/diff-hl-disable-flydiff-on-large-buffer ()
+    "Disable Diff HL flydiff in buffers larger than 1 MB."
+    (when (and diff-hl-flydiff-mode
+               (> (buffer-size) 1000000))
+      (diff-hl-flydiff-mode -1)))
+
+  (add-hook 'after-init-hook
             (lambda ()
-              (when (> (buffer-size) 1000000)
-                (diff-hl-flydiff-mode -1))))
-  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+              (require 'diff-hl)
+              (global-diff-hl-mode 1)
+              (diff-hl-flydiff-mode 1)
+              (unless (display-graphic-p)
+                (diff-hl-margin-mode 1))))
+
+  :config
+  (add-hook 'diff-hl-flydiff-mode-hook
+            #'my/diff-hl-disable-flydiff-on-large-buffer)
+
+  (add-hook 'dired-mode-hook
+            #'diff-hl-dired-mode)
+
   (with-eval-after-load 'magit
-    (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-    (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
-  (unless (display-graphic-p)
-    (diff-hl-margin-mode 1)))
+    (add-hook 'magit-pre-refresh-hook
+              #'diff-hl-magit-pre-refresh)
+    (add-hook 'magit-post-refresh-hook
+              #'diff-hl-magit-post-refresh)))
 
 (provide 'do-tools)
 

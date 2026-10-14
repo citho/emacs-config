@@ -1,12 +1,16 @@
-;;; do-edior.el ---Editing behavior -*- lexical-binding: t -*-
+;;; do-editor.el ---Editing behavior -*- lexical-binding: t -*-
 
 (use-package expreg
   :bind (("C-=" . expreg-expand)
          ("C--" . expreg-contract))
-  :config
+  :init
+  (defun my/expreg-add-sentence-expansion ()
+    "Add sentence expansion to Expreg when available."
+    (when (boundp 'expreg-functions)
+      (add-to-list 'expreg-functions #'expreg--sentence)))
+
   (add-hook 'text-mode-hook
-            (lambda ()
-              (add-to-list 'expreg-functions #'expreg--sentence))))
+            #'my/expreg-add-sentence-expansion))
 
 
 (use-package multiple-cursors
@@ -18,11 +22,12 @@
 
 (use-package wgrep
   :ensure t
+  :after (grep)
   :bind (:map grep-mode-map
               ("C-c C-p" . wgrep-change-to-wgrep-mode))
-  :config
-  (setq wgrep-change-readonly-file t)
-  (setq wgrep-auto-save-buffer t))
+  :custom
+  (wgrep-change-readonly-file t)
+  (wgrep-auto-save-buffer t))
 
 (provide 'do-editor)
 

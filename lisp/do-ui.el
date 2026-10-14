@@ -24,15 +24,19 @@
 
 (use-package command-log-mode
   :ensure t
-  :defer t
-  :bind (("C-c o" . command-log-mode))
+  :bind ("C-c o" . command-log-mode)
   :config
+  (defun my/command-log-mode-cleanup ()
+    "Close the command-log window when logging is disabled."
+    (unless command-log-mode
+      (let ((window (get-buffer-window " *command-log*")))
+        (when window
+          (delete-window window)))))
   (add-hook 'command-log-mode-hook
-            (lambda ()
-              (if command-log-mode
-                  (clm/open-command-log-buffer)
-                (let ((window (get-buffer-window " *command-log*")))
-                  (when window (delete-window window)))))))
+            #'my/command-log-mode-cleanup)
+  (with-eval-after-load 'command-log-mode
+    (when command-log-mode
+      (clm/open-command-log-buffer))))
 
 (use-package popper
   :ensure t
@@ -56,22 +60,21 @@
           inf-ruby-mode
           sqli-mode
           geiser-repl-mode))
-  (popper-mode 1)
-  (popper-echo-mode 1))
+  (add-hook 'after-init-hook
+            (lambda ()
+              (popper-mode 1)
+              (popper-echo-mode 1))))
 
 (use-package vundo
   :ensure t
-  :bind ("C-x u" . vundo)
-  :config
-  (setq vundo-glyph-alist vundo-unicode-symbols))
+  :bind ("C-x u" . vundo))
 
 (use-package which-key
   :ensure t
-  :init
-  (which-key-mode 1)
-  :config
-  (setq which-key-idle-delay 0.3
-        which-key-idle-secondary-delay 0.05))
+  :hook (after-init . which-key-mode)
+  :custom
+  (which-key-idle-delay 0.3)
+  (which-key-idle-secondary-delay 0.05))
 
 (provide 'do-ui)
 

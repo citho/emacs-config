@@ -1,5 +1,27 @@
 ;;; do-core.el --- Core behavior -*- lexical-binding: t -*-
 
+(use-package gcmh
+  :ensure t
+  :demand t
+  :init
+  (setq gcmh-high-cons-threshold (* 128 1024 1024)
+        gcmh-low-cons-threshold (* 16 1024 1024)
+        gcmh-idle-delay 10)
+  :config
+  (gcmh-mode 1))
+
+(use-package no-littering
+  :ensure t
+  :config
+  (setq custom-file
+        (no-littering-expand-etc-file-name "custom.el"))
+  (when (file-readable-p custom-file)
+    (load custom-file 'noerror 'nomessage))
+  (setq backup-directory-alist
+        `(("." . ,(no-littering-expand-var-file-name "backups/"))))
+  (setq auto-save-file-name-transforms
+        `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
+
 (setq global-auto-revert-non-file-buffers t
       auto-revert-use-notify t
       ring-bell-function #'ignore
@@ -16,6 +38,8 @@
               tab-width 4
               fill-column 88)
 
+(setq use-package-compute-statistics t)
+
 (savehist-mode 1)
 (global-hl-line-mode 1)
 (global-auto-revert-mode 1)
@@ -30,18 +54,6 @@
 
 (setq enable-recursive-minibuffers t
       minibuffer-depth-indicate-mode t)
-
-(use-package no-littering
-  :ensure t
-  :config
-  (setq custom-file
-        (no-littering-expand-etc-file-name "custom.el"))
-  (when (file-readable-p custom-file)
-    (load custom-file 'noerror 'nomessage))
-  (setq backup-directory-alist
-        `(("." . ,(no-littering-expand-var-file-name "backups/"))))
-  (setq auto-save-file-name-transforms
-        `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
 (setq modus-operandi-palette-overrides
       '((bg-mode-line-active bg-blue-intense)

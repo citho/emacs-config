@@ -3,14 +3,72 @@
 (use-package cape
   :ensure t
   :bind ("C-c p" . cape-prefix-map)
-  :hook (embark-collect-mode . consult-preview-at-point-mode)
   :init
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-keyword))
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-keyword))
+
+(use-package vertico
+  :ensure t
+  :hook (after-init . vertico-mode)
+  :custom
+  (vertico-count 10)
+  (vertico-cycle t))
+
+(use-package vertico-directory
+  :ensure nil
+  :after (vertico)
+  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy)
+  :bind (:map vertico-map
+              ("DEL" . vertico-directory-delete-char)
+              ("M-DEL" . vertico-directory-delete-word)))
+
+(use-package marginalia
+  :ensure t
+  :hook (after-init . marginalia-mode)
+  :bind (:map minibuffer-local-map
+              ("M-A" . marginalia-cycle)))
+
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides
+   '((file (styles partial-completion))))
+  (completion-pcm-leading-wildcard t))
+
+(use-package corfu
+  :ensure t
+  :hook (after-init . global-corfu-mode)
+  :bind (:map corfu-map
+              ("s-SPC" . corfu-insert-separator)
+              ("C-n" . corfu-next)
+              ("C-p" . corfu-previous)
+              ("C-g" . corfu-quit)
+              ("M-d" . corfu-popupinfo-toggle)
+              ("M-q" . corfu-quick-insert)
+              ("M-n" . corfu-popupinfo-scroll-up)
+              ("M-p" . corfu-popupinfo-scroll-down))
+  :custom
+  (corfu-auto t)
+  (corfu-auto-delay 0.2)
+  (corfu-auto-prefix 2)
+  (corfu-cycle t)
+  (corfu-preview-current nil)
+  (corfu-popupinfo-delay '(1.25 . 0.5))
+  (corfu-popupinfo-max-height 15)
+  (corfu-popupinfo-max-width 60)
+  (corfu-count 10)
+  (corfu-scroll-margin 2)
+  :config
+  (corfu-history-mode 1)
+  (corfu-popupinfo-mode 1))
+
 
 (use-package consult
   :ensure t
+  :hook (embark-collect-mode . consult-preview-at-point-mode)
   :bind (("C-x b" . consult-buffer)
          ("C-x 4 b" . consult-buffer-other-window)
          ("C-x 5 b" . consult-buffer-other-frame)
@@ -31,11 +89,11 @@
          :map minibuffer-local-map
          ("M-s" . consult-history))
   :init
-  (advice-add #'register-preview :override #'consult-register-window)
-  (setq register-preview-delay 0.5)
-  (setq xref-show-xrefs-function #'consult-xref
+  (setq register-preview-delay 0.5
+        xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
   :config
+  (advice-add #'register-preview :override #'consult-register-window)
   (consult-customize
    consult-theme :preview-key '(:debounce 0.2 any)
    consult-ripgrep consult-git-grep consult-grep
@@ -46,34 +104,6 @@
   (setq consult-narrow-key "<")
   (keymap-set consult-narrow-map
               (concat consult-narrow-key " ?") #'consult-narrow-help))
-
-(use-package corfu
-  :ensure t
-  :bind (:map corfu-map
-              ("s-SPC" . corfu-insert-separator)
-              ("C-n" . corfu-next)
-              ("C-p" . corfu-previous)
-              ("C-g" . corfu-quit)
-              ("M-d" . corfu-popupinfo-toggle)
-              ("M-q" . corfu-quick-insert)
-              ("M-n" . corfu-popupinfo-scroll-up)
-              ("M-p" . corfu-popupinfo-scroll-down))
-  :init
-  (global-corfu-mode 1)
-  :config
-  (corfu-history-mode 1)
-  (corfu-popupinfo-mode 1)
-  :custom
-  (corfu-auto t)
-  (corfu-auto-delay 0.2)
-  (corfu-auto-prefix 2)
-  (corfu-cycle t)
-  (corfu-preview-current nil)
-  (corfu-popupinfo-delay '(1.25 . 0.5))
-  (corfu-popupinfo-max-height 15)
-  (corfu-popupinfo-max-width 60)
-  (corfu-count 10)
-  (corfu-scroll-margin 2))
 
 (use-package embark
   :ensure t
@@ -91,38 +121,6 @@
 (use-package embark-consult
   :ensure t
   :after (embark consult))
-
-(use-package marginalia
-  :ensure t
-  :bind (:map minibuffer-local-map
-              ("M-A" . marginalia-cycle))
-  :init
-  (marginalia-mode 1))
-
-(use-package orderless
-  :ensure t
-  :custom
-  (completion-styles '(orderless basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides
-   '((file (styles partial-completion))))
-  (completion-pcm-leading-wildcard t))
-
-(use-package vertico
-  :ensure t
-  :init
-  (vertico-mode 1)
-  :custom
-  (vertico-count 10)
-  (vertico-cycle t))
-
-(use-package vertico-directory
-  :ensure nil
-  :after vertico
-  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy)
-  :bind (:map vertico-map
-              ("DEL" . vertico-directory-delete-char)
-              ("M-DEL" . vertico-directory-delete-word)))
 
 (provide 'do-completion)
 
