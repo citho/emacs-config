@@ -80,26 +80,87 @@
          ("C-c n i" . org-roam-node-insert)
          ("C-c n c" . org-roam-capture)
          ("C-c n j" . org-roam-dailies-capture-today))
-  :config
-  (org-roam-db-autosync-mode)
-  (setq org-roam-capture-templates
-        '(("d" "default" plain
-           "%?"
-           :if-new
-           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-           :unnarrowed t)
-          ("p" "project" plain
-           "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
-           :if-new
-           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
-           :unnarrowed t)
-          ("b" "book notes" plain
-           "\n* Source\n\nAuthor: %^{Author}\nTitle: ${title}\nYear: %^{Year}\n\n* Summary\n\n%?"
-           :if-new
-           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-           :unnarrowed t)))
   :custom
-  (org-roam-directory (file-truename "~/org/org-roam/")))
+  (org-roam-directory (file-truename "~/org/roam/")
+                      (org-roam-completion-everywhere t))
+  (org-roam-node-display-template
+   (concat "${title:*} "
+           (propertize "${tags:10}" 'face 'org-tag)))
+  :config
+  (org-roam-db-autosync-mode 1)
+  (setq org-roam-capture-templates
+        '(("p" "Permanent note" plain
+           "%?"
+           :target (file+head
+                    "permanent/${slug}.org"
+                    "#+title: ${title}\n#+filetags: :permanent:\n#+created: %U\n\n* Main Idea\n\n* Explanation\n\n* Connections\n\n* References\n")
+           :unnarrowed t)
+          ("l" "Literature note" plain
+           "%?"
+           :target (file+head
+                    "literature/${slug}.org"
+                    "#+title: ${title}\n#+filetags: :literature:\n#+created: %U\n#+source: \n\n* Summary\n\n* Key Ideas\n\n* Quotes\n\n* My Thoughts\n")
+           :unnarrowed t)
+          ("f" "Fleeting note" plain
+           "%?"
+           :target (file+head
+                    "fleeting/${slug}.org"
+                    "#+title: ${title}\n#+filetags: :fleeting:\n#+created: %U\n\n* Note\n\n* Process\n")
+           :unnarrowed t)
+          ("r" "Reference / Web" plain
+           "%?"
+           :target (file+head
+                    "references/${slug}.org"
+                    "#+title: ${title}\n#+filetags: :reference:\n#+created: %U\n#+url: \n\n* Summary\n\n* Insights\n\n* Related Notes\n")
+           :unnarrowed t)
+          ("c" "Concept note" plain
+           "%?"
+           :target (file+head
+                    "concepts/${slug}.org"
+                    "#+title: ${title}\n#+filetags: :concept:\n#+created: %U\n\n* Definition\n\n* Why It Matters\n\n* Examples\n\n* Related Concepts\n")
+           :unnarrowed t))))
+
+(use-package org-roam-dailies
+  :ensure nil
+  :after (org-roam)
+  :custom
+  (org-roam-dailies-directory "daily/")
+  :bind
+  (("C-c n d" . org-roam-dailies-goto-today)
+   ("C-c n D" . org-roam-dailies-capture-today)
+   ("C-c n y" . org-roam-dailies-goto-yesterday)
+   ("C-c n t" . org-roam-dailies-capture-date))
+  :config
+  (setq org-roam-dailies-capture-templates
+        '(("d" "Daily" entry
+           "* Daily Log\n\n%?\n\n"
+           :target (file+head
+                    "%<%Y-%m-%d>.org"
+                    "#+title: %<%Y-%m-%d>\n#+filetags: :daily:\n\n")
+           :unnarrowed t)
+          ("j" "Journal" entry
+           "* %<%H:%M> Journal\n\n%?\n"
+           :target (file+head
+                    "%<%Y-%m-%d>.org"
+                    "#+title: %<%Y-%m-%d>\n\n")
+           :unnarrowed t)
+          ("t" "Task" entry
+           "* TODO %?\n  SCHEDULED: %t\n"
+           :target (file+head
+                    "%<%Y-%m-%d>.org"
+                    "#+title: %<%Y-%m-%d>\n\n")
+           :unnarrowed t))))
+
+(use-package org-roam-ui
+  :ensure t
+  :after (org-roam)
+  :bind ("C-c n u" . org-roam-ui-open)
+  :custom
+  (org-roam-ui-sync-theme t)
+  (org-roam-ui-follow t)
+  (org-roam-ui-update-on-save t)
+  (org-roam-ui-open-on-start nil))
+
 
 (use-package org-superstar
   :ensure t

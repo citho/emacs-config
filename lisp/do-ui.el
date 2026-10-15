@@ -6,6 +6,7 @@
 (add-hook 'text-mode-hook #'display-line-numbers-mode)
 
 (dolist (hook '(term-mode-hook
+                vterm-mode-hook
                 eshell-mode-hook
                 shell-mode-hook
                 help-mode-hook

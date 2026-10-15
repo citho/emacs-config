@@ -30,7 +30,7 @@
       sentence-end-double-space nil
       make-backup-files t
       history-length 200
-      recentf-max-saved-items 300
+      recentf-max-saved-items 5
       save-interprogram-paste-before-kill t
       confirm-kill-processes nil)
 

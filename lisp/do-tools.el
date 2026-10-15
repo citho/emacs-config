@@ -44,7 +44,6 @@
     (when (and diff-hl-flydiff-mode
                (> (buffer-size) 1000000))
       (diff-hl-flydiff-mode -1)))
-
   (add-hook 'after-init-hook
             (lambda ()
               (require 'diff-hl)
@@ -56,15 +55,57 @@
   :config
   (add-hook 'diff-hl-flydiff-mode-hook
             #'my/diff-hl-disable-flydiff-on-large-buffer)
-
   (add-hook 'dired-mode-hook
             #'diff-hl-dired-mode)
-
   (with-eval-after-load 'magit
     (add-hook 'magit-pre-refresh-hook
               #'diff-hl-magit-pre-refresh)
     (add-hook 'magit-post-refresh-hook
               #'diff-hl-magit-post-refresh)))
+
+(use-package gptel
+  :ensure t
+  :commands (gptel gptel-menu)
+  :config
+  (gptel-make-openai "OpenRouter"
+    :host "openrouter.ai"
+    :protocol "https"
+    :endpoint "/api/v1/chat/completions"
+    :stream t
+    :key (lambda ()
+           (getenv "OPENROUTER_API_KEY"))
+    :models '(openai/gpt-4o
+              google/gemini-2.5-flash
+              deepseek/deepseek-chat))
+  (setq gptel-max-tokens 2048)
+  (setq gptel-backend
+        (gptel-get-backend "OpenRouter"))
+  (setq gptel-model 'openai/gpt-4o)
+  (add-hook 'gptel-mode-hook
+            (lambda ()
+              (org-mode))))
+
+(use-package vterm
+  :ensure t
+  :commands (vterm vterm-mode vterm-other-window)
+  :bind (("<f7>" . vterm)
+         ("C-c t" . my-vterm-custom-buffer-name))
+  :custom
+  (vterm-shell "/bin/bash")
+  (vterm-max-scrollback 20000)
+  (vterm-kill-buffer-on-exit t)
+  (vterm-copy-exclude-prompt t)
+  (vterm-term-environment-variable "xterm-256color")
+  :config
+  (defun my-vterm-custom-buffer-name (name)
+    "Open a new vterm buffer with a specified name."
+    (interactive "sEnter buffer name: ")
+    (let ((buffer (get-buffer-create (concat "*vterm-" name "*"))))
+      (with-current-buffer buffer
+        (unless (derived-mode-p 'vterm-mode)
+          (vterm-mode)))
+      (switch-to-buffer buffer))))
+
 
 (provide 'do-tools)
 
